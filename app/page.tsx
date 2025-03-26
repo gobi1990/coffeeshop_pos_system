@@ -1,8 +1,36 @@
+"use client";
+
+import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
+import { NavItem } from "./interfaces/interfaces";
+import Sidebar from "./components/sideBar";
+
+const navItems: NavItem[] = [
+  { name: "Menu", icon: <MenuIcon className="h-5 w-5" /> },
+  { name: "Orders", icon: <ClipboardList className="h-5 w-5" /> },
+  { name: "Sales", icon: <DollarSign className="h-5 w-5" /> },
+  { name: "Promotions", icon: <Percent className="h-5 w-5" /> },
+  { name: "Payments", icon: <CreditCard className="h-5 w-5" /> },
+  { name: "Inventory", icon: <Package className="h-5 w-5" /> },
+  { name: "Employees", icon: <Users className="h-5 w-5" /> },
+];
 
 export default function Home() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [activeNav, setActiveNav] = useState("Dashboard");
+  
   return (
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+      <Sidebar
+        isOpen={isSidebarOpen}
+        toggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
+        navItems={navItems}
+        activeNav={activeNav}
+        setActiveNav={(name) => {
+          setActiveNav(name);
+        }}
+      />
       <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
         <Image
           className="dark:invert"
