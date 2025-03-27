@@ -25,7 +25,7 @@ interface SidebarProps {
             isOpen ? "w-64" : "w-20"
           )}
         >
-          <div className="flex items-center justify-between p-4 border-b">
+          <div className="flex items-center justify-between p-4 ">
             <h1
               className={twJoin(
                 "font-bold transition-all duration-300",
@@ -53,7 +53,7 @@ interface SidebarProps {
                 className={twJoin(
                   "w-full flex items-center space-x-4 p-3 rounded-lg mb-2 transition-all duration-200",
                   activeNav === item.name
-                    ? "bg-primary text-primary-foreground"
+                    ? "bg-primary text-primary-foreground font-semibold"
                     : "hover:bg-gray-100 text-gray-700"
                 )}
               >

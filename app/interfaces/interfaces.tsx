@@ -14,3 +14,22 @@ export interface NavItem {
   name: string;
   icon: JSX.Element;
 }
+
+export interface Employee {
+  id: number;
+  name: string;
+  role: string;
+  present: boolean;
+}
+
+export interface Order {
+  id: string;
+  items: CartItem[];
+  total: number;
+  date: Date;
+  status: "pending" | "completed" | "cancelled";
+}
+
+export interface CartItem extends MenuItem {
+  quantity: number;
+}
