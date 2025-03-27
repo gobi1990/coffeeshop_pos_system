@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon } from "lucide-react";
-import Image from "next/image";
 import { useState } from "react";
 import { Employee, NavItem, Order } from "./interfaces/interfaces";
 import Sidebar from "./components/sideBar";
@@ -36,9 +36,6 @@ const paymentData = [
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("Home");
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [isAddingMenuItem, setIsAddingMenuItem] = useState(false);
-  const [cartCount, setCartCount] = useState(0);
   const [orders, setOrders] = useState<Order[]>([]);
   
   
