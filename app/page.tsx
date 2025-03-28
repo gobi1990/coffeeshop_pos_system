@@ -1,13 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon } from "lucide-react";
-import { useState } from "react";
-import { Employee, NavItem, Order } from "./interfaces/interfaces";
+import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee } from "lucide-react";
+import { useCallback, useState } from "react";
+import { CartItem, Employee, MenuItem, NavItem, Order } from "./interfaces/interfaces";
 import Sidebar from "./components/sideBar";
 import Dashboard from "./components/dashboard";
 import Header from "./components/header";
 import { twJoin } from 'tailwind-merge';
+import MenuSection from "./components/menuSection";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -32,11 +33,30 @@ const paymentData = [
   { name: "4 Days Ago", cash: 4000, card: 2400 },
 ];
 
+const menuItems: MenuItem[] = [
+  { id: 1, name: "Espresso", price: 3.50, category: "coffee", icon: <Coffee className="h-6 w-6" />, imageUrl: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400" },
+];
+
 
 export default function Home() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeNav, setActiveNav] = useState("Home");
   const [orders, setOrders] = useState<Order[]>([]);
+  const [activeCategory, setActiveCategory] = useState<"coffee" | "dessert" | "cold">("coffee");
+  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(menuItems);
+  const [cart, setCart] = useState<CartItem[]>([]);
+
+  const addToCart = useCallback((item: MenuItem) => {
+    setCart((prev) => {
+      const existing = prev.find((i) => i.id === item.id);
+      if (existing) {
+        return prev.map((i) =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
+      }
+      return [...prev, { ...item, quantity: 1 }];
+    });
+  }, []);
   
   
   return (
@@ -61,6 +81,14 @@ export default function Home() {
               employees={employees}
               salesData={salesData}
               paymentData={paymentData}
+            />
+          )}
+          {activeNav === "Menu" && (
+            <MenuSection
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              menuItems={menuItemsList}
+              addToCart={addToCart}
             />
           )}
         </main>
