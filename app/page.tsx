@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee } from "lucide-react";
+import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee, Cake } from "lucide-react";
 import { useCallback, useState } from "react";
 import { CartItem, Employee, MenuItem, NavItem, Order } from "./interfaces/interfaces";
 import Sidebar from "./components/sideBar";
@@ -9,6 +9,7 @@ import Dashboard from "./components/dashboard";
 import Header from "./components/header";
 import { twJoin } from 'tailwind-merge';
 import MenuSection from "./components/menuSection";
+import { employees, mockMenuItems, paymentData, salesData } from "./data/mockData";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -21,21 +22,7 @@ const navItems: NavItem[] = [
   { name: "Employees", icon: <Users className="h-5 w-5" /> },
 ];
 
-const employees: Employee[] = [
-  { id: 1, name: "John Doe", role: "Barista", present: true },
-];
 
-const salesData = [
-  { name: "4 Days Ago", sales: 2400 },
-];
-
-const paymentData = [
-  { name: "4 Days Ago", cash: 4000, card: 2400 },
-];
-
-const menuItems: MenuItem[] = [
-  { id: 1, name: "Espresso", price: 3.50, category: "coffee", icon: <Coffee className="h-6 w-6" />, imageUrl: "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?w=400" },
-];
 
 
 export default function Home() {
@@ -43,7 +30,7 @@ export default function Home() {
   const [activeNav, setActiveNav] = useState("Home");
   const [orders, setOrders] = useState<Order[]>([]);
   const [activeCategory, setActiveCategory] = useState<"coffee" | "dessert" | "cold">("coffee");
-  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(menuItems);
+  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(mockMenuItems);
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = useCallback((item: MenuItem) => {
@@ -87,7 +74,7 @@ export default function Home() {
             <MenuSection
               activeCategory={activeCategory}
               setActiveCategory={setActiveCategory}
-              menuItems={menuItemsList}
+              menuItems={mockMenuItems}
               addToCart={addToCart}
             />
           )}
