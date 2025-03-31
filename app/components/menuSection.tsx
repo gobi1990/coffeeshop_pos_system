@@ -9,12 +9,15 @@ interface MenuSectionProps {
   activeCategory: "coffee" | "dessert" | "cold";
   setActiveCategory: (category: "coffee" | "dessert" | "cold") => void;
   menuItems: MenuItem[];
+  cartCount: number;
   addToCart: (item: MenuItem) => void;
   toggleCart: () => void; 
+  
+  toggleAddMenuItem: () => void;
 }
 
 const MenuSection = memo(
-  ({ activeCategory, setActiveCategory, menuItems, addToCart , toggleCart }: MenuSectionProps) => {
+  ({ activeCategory, setActiveCategory, menuItems, cartCount, addToCart , toggleCart  , toggleAddMenuItem}: MenuSectionProps) => {
     const handleCategoryChange = useCallback(
       (category: "coffee" | "dessert" | "cold") => setActiveCategory(category),
       [setActiveCategory]
@@ -24,14 +27,14 @@ const MenuSection = memo(
       <>
       <div className="flex items-center space-x-4 mb-6">
       <button
-          onClick={()=>{}}
+          onClick={toggleAddMenuItem}
           className="w-full bg-black text-white font-semibold py-2 rounded-lg hover:bg-primary/90 flex items-center justify-center space-x-2"
         >
           <CakeIcon className="h-5 w-5" />
           <span>Add New Menu Item</span>
         </button>
         <button
-          onClick={()=>{}}
+          onClick={() => {}}
           className="w-full bg-black text-white font-semibold py-2 rounded-lg hover:bg-primary/90 flex items-center justify-center space-x-2"
         >
           <FolderCog className="h-5 w-5" />
@@ -66,6 +69,10 @@ const MenuSection = memo(
           className="fixed bottom-6 right-6 bg-primary text-primary-foreground p-4 rounded-full shadow hover:bg-gray-100 hover:scale-95 transition-all z-50"
         >
           <ShoppingCart className="h-8 w-8" />
+          {cartCount > 0 && (
+                  <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+                    {cartCount}
+                  </span>)}
         </button>
       </>
     );

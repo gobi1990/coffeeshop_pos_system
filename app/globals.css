@@ -30,3 +30,12 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0,0,0,var(--tw-bg-opacity));
+}
+
+.bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}

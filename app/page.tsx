@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee, Cake } from "lucide-react";
+import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee, Cake, IceCream } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { CartItem, Employee, MenuItem, NavItem, Order } from "./interfaces/interfaces";
 import Sidebar from "./components/sideBar";
@@ -11,6 +11,8 @@ import { twJoin } from 'tailwind-merge';
 import MenuSection from "./components/menuSection";
 import { employees, mockMenuItems, paymentData, salesData } from "./data/mockData";
 import OrdersSection from "./components/orderSection";
+import CartSidebar from "./components/cartSidebar";
+import AddMenuItemModal from "./components/addMenuItemModel";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -35,6 +37,7 @@ export default function Home() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [isAddingMenuItem, setIsAddingMenuItem] = useState(false);
 
   const addToCart = useCallback((item: MenuItem) => {
     setCart((prev) => {
@@ -45,6 +48,18 @@ export default function Home() {
         );
       }
       return [...prev, { ...item, quantity: 1 }];
+    });
+  }, []);
+
+  const removeFromCart = useCallback((itemId: number) => {
+    setCart((prev) => {
+      const existing = prev.find((i) => i.id === itemId);
+      if (existing && existing.quantity > 1) {
+        return prev.map((i) =>
+          i.id === itemId ? { ...i, quantity: i.quantity - 1 } : i
+        );
+      }
+      return prev.filter((i) => i.id !== itemId);
     });
   }, []);
 
@@ -66,11 +81,51 @@ export default function Home() {
       )
     );
   }, []);
+
+  const [newMenuItem, setNewMenuItem] = useState<Partial<MenuItem>>({ category: "coffee" });
   
   const cartCount = useMemo(
     () => cart.reduce((sum, item) => sum + item.quantity, 0),
     [cart]
   );
+
+  const handleAddMenuItem = useCallback(() => {
+    if (!newMenuItem.name || !newMenuItem.price) return;
+    const newItem: MenuItem = {
+      id: menuItemsList.length + 1,
+      name: newMenuItem.name,
+      price: newMenuItem.price,
+      category: newMenuItem.category as "coffee" | "dessert" | "cold",
+      description: newMenuItem.description,
+      imageUrl: newMenuItem.imageUrl,
+      icon:
+        newMenuItem.category === "coffee" ? (
+          <Coffee className="h-6 w-6" />
+        ) : newMenuItem.category === "dessert" ? (
+          <Cake className="h-6 w-6" />
+        ) : (
+          <IceCream className="h-6 w-6" />
+        ),
+    };
+    setMenuItemsList((prev) => [...prev, newItem]);
+    setNewMenuItem({ category: "coffee" });
+    setIsAddingMenuItem(false);
+  }, [newMenuItem, menuItemsList]);
+
+  const placeOrder = useCallback(() => {
+    if (cart.length === 0) return;
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const newOrder: Order = {
+      id: `ORD${Date.now()}`,
+      items: [...cart],
+      total,
+      date: new Date(),
+      status: "pending",
+    };
+    setOrders((prev) => [...prev, newOrder]);
+    setCart([]);
+    setIsCartOpen(false);
+  }, [cart]);
   
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -102,7 +157,9 @@ export default function Home() {
               setActiveCategory={setActiveCategory}
               menuItems={mockMenuItems}
               addToCart={addToCart}
+              cartCount={cartCount}
               toggleCart={() => setIsCartOpen(true)}
+              toggleAddMenuItem={() => setIsAddingMenuItem(true)}
             />
           )}
           {activeNav === "Orders" && (
@@ -116,6 +173,22 @@ export default function Home() {
           )}
         </main>
       </div>
+      <CartSidebar
+        isOpen={isCartOpen}
+        toggleCart={() => setIsCartOpen(false)}
+        cart={cart}
+        addToCart={addToCart}
+        removeFromCart={removeFromCart}
+        placeOrder={placeOrder}
+      />
+      {isAddingMenuItem && (
+        <AddMenuItemModal
+          isOpen={isAddingMenuItem}
+          toggleModal={() => setIsAddingMenuItem(false)}
+          newMenuItem={newMenuItem}
+          handleAddMenuItem={handleAddMenuItem}
+        />
+      )}
     </div>
   );
 }
