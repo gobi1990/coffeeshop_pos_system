@@ -3,17 +3,18 @@ import { memo } from "react";
 import { twJoin } from "tailwind-merge";
 import MenuItemUI from "./menuItem";
 import { MenuItem } from "../interfaces/interfaces";
-import { CakeIcon, FolderCog } from "lucide-react";
+import { CakeIcon, FolderCog, ShoppingCart } from "lucide-react";
 
 interface MenuSectionProps {
   activeCategory: "coffee" | "dessert" | "cold";
   setActiveCategory: (category: "coffee" | "dessert" | "cold") => void;
   menuItems: MenuItem[];
   addToCart: (item: MenuItem) => void;
+  toggleCart: () => void; 
 }
 
 const MenuSection = memo(
-  ({ activeCategory, setActiveCategory, menuItems, addToCart }: MenuSectionProps) => {
+  ({ activeCategory, setActiveCategory, menuItems, addToCart , toggleCart }: MenuSectionProps) => {
     const handleCategoryChange = useCallback(
       (category: "coffee" | "dessert" | "cold") => setActiveCategory(category),
       [setActiveCategory]
@@ -60,6 +61,12 @@ const MenuSection = memo(
               <MenuItemUI key={item.id} item={item} addToCart={addToCart} />
             ))}
         </div>
+        <button
+          onClick={toggleCart}
+          className="fixed bottom-6 right-6 bg-primary text-primary-foreground p-4 rounded-full shadow hover:bg-gray-100 hover:scale-95 transition-all z-50"
+        >
+          <ShoppingCart className="h-8 w-8" />
+        </button>
       </>
     );
   }

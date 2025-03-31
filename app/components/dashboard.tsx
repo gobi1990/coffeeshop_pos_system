@@ -96,7 +96,7 @@ const Dashboard = ({
           {employees
             .filter((employee) => employee.present)
             .map((employee) => (
-              <div key={employee.id} className="bg-gray-50 rounded-lg p-4 flex items-center space-x-4">
+              <div key={employee.id} className="bg-gray-50 rounded-lg p-4 flex items-center space-x-4 shadow">
                 <div className="bg-blue-100 p-2 rounded-full">
                   <Users className="h-5 w-5 text-blue-600" />
                 </div>
