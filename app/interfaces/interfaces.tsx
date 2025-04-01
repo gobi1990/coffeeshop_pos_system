@@ -33,3 +33,24 @@ export interface Order {
 export interface CartItem extends MenuItem {
   quantity: number;
 }
+
+export interface InventoryItem {
+  id: number;
+  name: string;
+  quantity: number;
+  unit: string;
+  reorderPoint: number;
+  category: string;
+}
+
+export interface Promotion {
+  id: string;
+  name: string;
+  type: "discount" | "bogo" | "gift";
+  startDate: Date;
+  endDate: Date;
+  active: boolean;
+  discountPercent?: number;
+  giftItem?: string;
+  applicableItems: number[];
+}

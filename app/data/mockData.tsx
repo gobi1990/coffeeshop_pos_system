@@ -1,5 +1,5 @@
 
-import { Employee, MenuItem } from "../interfaces/interfaces";
+import { Employee, InventoryItem, MenuItem, Promotion } from "../interfaces/interfaces";
 import { Coffee, Cake, IceCream } from "lucide-react";
 
 export const mockMenuItems: MenuItem[] = [
@@ -101,4 +101,28 @@ export const paymentData = [
   { name: "03/01/2023", cash: 800, card: 400 },
   { name: "04/01/2023", cash: 1000, card: 500 },
   { name: "05/01/2023", cash: 1200, card: 600 },
+];
+
+export const initialInventory: InventoryItem[] = [
+  {
+    id: 1,
+    name: "Coffee Beans",
+    quantity: 50,
+    unit: "kg",
+    reorderPoint: 10,
+    category: "Raw Materials",
+  },
+];
+
+export const initialPromotions: Promotion[] = [
+  {
+    id: "PROMO1",
+    name: "Summer Special",
+    type: "discount",
+    startDate: new Date("2024-06-01"),
+    endDate: new Date("2024-08-31"),
+    active: true,
+    discountPercent: 20,
+    applicableItems: [1, 2, 3],
+  },
 ];

@@ -3,16 +3,18 @@
 
 import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee, Cake, IceCream } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
-import { CartItem, Employee, MenuItem, NavItem, Order } from "./interfaces/interfaces";
+import { CartItem, InventoryItem, MenuItem, NavItem, Order, Promotion } from "./interfaces/interfaces";
 import Sidebar from "./components/sideBar";
 import Dashboard from "./components/dashboard";
 import Header from "./components/header";
 import { twJoin } from 'tailwind-merge';
 import MenuSection from "./components/menuSection";
-import { employees, mockMenuItems, paymentData, salesData } from "./data/mockData";
+import { employees, initialInventory, initialPromotions, mockMenuItems, paymentData, salesData } from "./data/mockData";
 import OrdersSection from "./components/orderSection";
 import CartSidebar from "./components/cartSidebar";
 import AddMenuItemModal from "./components/addMenuItemModel";
+import InventorySection from "./components/inventroySection";
+import PromotionsSection from "./components/promotionSection";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -38,6 +40,8 @@ export default function Home() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isAddingMenuItem, setIsAddingMenuItem] = useState(false);
+  const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
+  const [promotions, setPromotions] = useState<Promotion[]>(initialPromotions);
 
   const addToCart = useCallback((item: MenuItem) => {
     setCart((prev) => {
@@ -126,6 +130,15 @@ export default function Home() {
     setCart([]);
     setIsCartOpen(false);
   }, [cart]);
+
+  const togglePromotionStatus = useCallback((promotionId: string) => {
+    setPromotions((prev) =>
+      prev.map((promo) =>
+        promo.id === promotionId ? { ...promo, active: !promo.active } : promo
+      )
+    );
+  }, []);
+
   
   return (
     <div className="min-h-screen bg-gray-50 flex">
@@ -171,6 +184,14 @@ export default function Home() {
             updateOrder={updateOrder} 
           />
           )}
+          {activeNav === "Promotions" && (
+            <PromotionsSection
+              promotions={promotions}
+              menuItems={menuItemsList}
+              togglePromotionStatus={togglePromotionStatus}
+            />
+          )}
+          {activeNav === "Inventory" && <InventorySection inventory={inventory} />}
         </main>
       </div>
       <CartSidebar
