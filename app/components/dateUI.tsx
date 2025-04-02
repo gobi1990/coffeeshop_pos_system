@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Calendar } from 'lucide-react';
 import { useState } from 'react';
 
 
 const DateUI: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState(new Date());
+  const currentTime  = new Date();
   const formattedDate = currentTime.toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
