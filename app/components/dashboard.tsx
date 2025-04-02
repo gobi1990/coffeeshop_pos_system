@@ -7,6 +7,9 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
+  BarChart,
+  Legend,
+  Bar,
 } from "recharts";
 import { Order, Employee } from "../interfaces/interfaces";
 import {
@@ -14,6 +17,7 @@ import {
   TrendingUp,
   Users,
 } from "lucide-react";
+import { paymentData } from "../data/mockData";
 
 interface DashboardProps {
   orders: Order[];
@@ -43,7 +47,7 @@ const Dashboard = ({
     <div className="space-y-6">
 
       {/* Sales Summary */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="flex flex-col md:flex-row gap-4">
         <div className="bg-white rounded-lg shadow-sm p-6">
           <div className="flex items-center justify-between">
             <div>
@@ -54,9 +58,11 @@ const Dashboard = ({
               <TrendingUp className="h-6 w-6 text-green-600" />
             </div>
           </div>
+          
         </div>
-       
+        
       </div>
+      
       
       {/* Pending Orders */}
       <div className="bg-white rounded-lg shadow-sm p-6">
@@ -87,6 +93,22 @@ const Dashboard = ({
             </ResponsiveContainer>
           </div>
         </div>
+        <div className="bg-white rounded-lg shadow-sm p-6">
+                  <h3 className="text-lg font-semibold mb-4">Payment Methods</h3>
+                  <div className="h-[300px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <BarChart data={paymentData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        <Bar dataKey="cash" fill="#8884d8" name="Cash" />
+                        <Bar dataKey="card" fill="#82ca9d" name="Card" />
+                      </BarChart>
+                    </ResponsiveContainer>
+                  </div>
+                </div>
       </div>
       
       {/* Present Employees */}

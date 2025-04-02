@@ -88,19 +88,19 @@ export const employees: Employee[] = [
 ];
 
 export const salesData = [
-  { name: "01/01/2023", sales: 2400 },
-  { name: "02/01/2023", sales: 3000 },
-  { name: "03/01/2023", sales: 1800 },
-  { name: "04/01/2023", sales: 2400 },
-  { name: "05/01/2023", sales: 3000 },
+  { name: "01/01/2025", sales: 10 },
+  { name: "02/01/2025", sales: 7 },
+  { name: "03/01/2025", sales: 12 },
+  { name: "04/01/2025", sales: 14 },
+  { name: "05/01/2025", sales: 5 },
 ];
 
 export const paymentData = [
-  { name: "01/01/2023", cash: 1000, card: 500 },
-  { name: "02/01/2023", cash: 1200, card: 600 },
-  { name: "03/01/2023", cash: 800, card: 400 },
-  { name: "04/01/2023", cash: 1000, card: 500 },
-  { name: "05/01/2023", cash: 1200, card: 600 },
+  { name: "01/01/2025", cash: 1000, card: 500 },
+  { name: "02/01/2025", cash: 1200, card: 600 },
+  { name: "03/01/2025", cash: 800, card: 400 },
+  { name: "04/01/2025", cash: 1000, card: 500 },
+  { name: "05/01/2025", cash: 1200, card: 600 },
 ];
 
 export const initialInventory: InventoryItem[] = [
@@ -126,3 +126,4 @@ export const initialPromotions: Promotion[] = [
     applicableItems: [1, 2, 3],
   },
 ];
+

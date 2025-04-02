@@ -54,3 +54,9 @@ export interface Promotion {
   giftItem?: string;
   applicableItems: number[];
 }
+
+export interface WeatherData {
+  temp: number;
+  description: string;
+  icon: string;
+}
