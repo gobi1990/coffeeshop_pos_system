@@ -79,12 +79,28 @@ export const mockMenuItems: MenuItem[] = [
 ];
 
 export const employees: Employee[] = [
-  { id: 1, name: "John Doe", role: "Barista", present: true },
-  { id: 2, name: "Jane Smith", role: "Barista", present: true },
-  { id: 3, name: "Bob Johnson", role: "Barista", present: true },
-  { id: 4, name: "Alice Brown", role: "Cashier", present: true },
-  { id: 5, name: "Mike Davis", role: "Chef", present: true },
-  { id: 6, name: "Emily Wilson", role: "Chef", present: true },
+  {
+    id: "EMP001",
+    name: "John Doe",
+    department: "Sales",
+    startTime: "09:00 AM",
+    endTime: "05:00 PM",
+    duration: "8h",
+    shiftType: "Day",
+    date: "2025-04-02",
+    role: "Chef"
+  },
+  {
+    id: "EMP002",
+    name: "Jane Smith",
+    department: "Kitchen",
+    startTime: "02:00 PM",
+    endTime: "10:00 PM",
+    duration: "8h",
+    shiftType: "Evening",
+    date: "2025-04-02",
+    role: "Barista"
+  },
 ];
 
 export const salesData = [
@@ -127,3 +143,38 @@ export const initialPromotions: Promotion[] = [
   },
 ];
 
+export const employeeList: Employee[] = [
+  {
+    id: "EMP001",
+    name: "John Doe",
+    department: "Sales",
+    startTime: "09:00 AM",
+    endTime: "05:30 PM",
+    duration: "8.5",
+    shiftType: "Day",
+    date: "2025-04-02",
+    role: "Cashier"
+  },
+  {
+    id: "EMP002",
+    name: "Jane Smith",
+    department: "Kitchen",
+    startTime: "02:00 PM",
+    endTime: "10:00 PM",
+    duration: "8",
+    shiftType: "Evening",
+    date: "2025-04-02",
+    role: "Barista"
+  },
+  {
+    id: "EMP003",
+    name: "Bob Johnson",
+    department: "Sales",
+    startTime: "02:00 PM",
+    endTime: "10:00 PM",
+    duration: "8",
+    shiftType: "Evening",
+    date: "2025-04-02",
+    role: "Cashier"
+  },
+];

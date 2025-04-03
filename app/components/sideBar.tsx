@@ -32,7 +32,7 @@ interface SidebarProps {
                 isOpen ? "text-xl" : "text-xs"
               )}
             >
-              {isOpen ? "Coffee Shop POS" : "POS"}
+              {isOpen ? "Coffee Shop POS Admin" : "POS Admin"}
             </h1>
             <button
               onClick={toggleSidebar}

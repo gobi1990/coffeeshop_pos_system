@@ -15,13 +15,6 @@ export interface NavItem {
   icon: JSX.Element;
 }
 
-export interface Employee {
-  id: number;
-  name: string;
-  role: string;
-  present: boolean;
-}
-
 export interface Order {
   id: string;
   items: CartItem[];
@@ -59,4 +52,16 @@ export interface WeatherData {
   temp: number;
   description: string;
   icon: string;
+}
+
+export interface Employee {
+  id: string;
+  name: string;
+  department: string;
+  startTime: string;
+  endTime: string;
+  duration: string;
+  shiftType: string;
+  date: string;
+  role: string;
 }

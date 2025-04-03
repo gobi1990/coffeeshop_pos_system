@@ -15,6 +15,7 @@ import CartSidebar from "./components/cartSidebar";
 import AddMenuItemModal from "./components/addMenuItemModel";
 import InventorySection from "./components/inventroySection";
 import PromotionsSection from "./components/promotionSection";
+import EmployeesSection from "./components/employeeSection";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -192,6 +193,7 @@ export default function Home() {
             />
           )}
           {activeNav === "Inventory" && <InventorySection inventory={inventory} />}
+          {activeNav === "Employees" && <EmployeesSection />}
         </main>
       </div>
       <CartSidebar

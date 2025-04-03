@@ -116,7 +116,6 @@ const Dashboard = ({
         <h3 className="text-lg font-semibold mb-4">Present Employees</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {employees
-            .filter((employee) => employee.present)
             .map((employee) => (
               <div key={employee.id} className="bg-gray-50 rounded-lg p-4 flex items-center space-x-4 shadow">
                 <div className="bg-blue-100 p-2 rounded-full">
