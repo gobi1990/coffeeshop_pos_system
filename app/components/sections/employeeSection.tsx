@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback } from "react";
 import { Calendar as CalendarIcon, Download, Filter, SortAsc } from "lucide-react";
-import { employeeList } from "../data/mockData";
-import CustomButton from "./customButton";
+import { employeeList } from "../../data/mockData";
+import CustomButton from "../ui/customButton";
 
 
 const EmployeesSection: React.FC = () => {

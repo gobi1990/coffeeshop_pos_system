@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 import { Plus, Minus } from "lucide-react";
-import { CartItem, Order } from "../interfaces/interfaces";
+import { CartItem, Order } from "../../interfaces/interfaces";
 
 
 interface OrderDetailsProps {

@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { InventoryItem } from "../interfaces/interfaces";
+import { InventoryItem } from "../../interfaces/interfaces";
 import { twJoin } from "tailwind-merge";
 
 interface InventorySectionProps {

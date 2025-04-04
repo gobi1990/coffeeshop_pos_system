@@ -4,18 +4,18 @@
 import { ClipboardList, CreditCard, DollarSign, MenuIcon, Package, Percent, Users , HomeIcon, Coffee, Cake, IceCream } from "lucide-react";
 import { useCallback, useMemo, useState } from "react";
 import { CartItem, InventoryItem, MenuItem, NavItem, Order, Promotion } from "./interfaces/interfaces";
-import Sidebar from "./components/sideBar";
-import Dashboard from "./components/dashboard";
-import Header from "./components/header";
+import Sidebar from "./components/ui/sideBar";
+import Dashboard from "./components/sections/dashboard";
+import Header from "./components/ui/header";
 import { twJoin } from 'tailwind-merge';
-import MenuSection from "./components/menuSection";
+import MenuSection from "./components/sections/menuSection";
 import { employees, initialInventory, initialPromotions, mockMenuItems, paymentData, salesData } from "./data/mockData";
-import OrdersSection from "./components/orderSection";
-import CartSidebar from "./components/cartSidebar";
-import AddMenuItemModal from "./components/addMenuItemModel";
-import InventorySection from "./components/inventroySection";
-import PromotionsSection from "./components/promotionSection";
-import EmployeesSection from "./components/employeeSection";
+import OrdersSection from "./components/sections/orderSection";
+import CartSidebar from "./components/ui/cartSidebar";
+import AddMenuItemModal from "./components/ui/addMenuItemModel";
+import InventorySection from "./components/sections/inventroySection";
+import PromotionsSection from "./components/sections/promotionSection";
+import EmployeesSection from "./components/sections/employeeSection";
 
 const navItems: NavItem[] = [
   { name: "Home", icon: <HomeIcon className="h-5 w-5" /> },
@@ -204,14 +204,6 @@ export default function Home() {
         removeFromCart={removeFromCart}
         placeOrder={placeOrder}
       />
-      {isAddingMenuItem && (
-        <AddMenuItemModal
-          isOpen={isAddingMenuItem}
-          toggleModal={() => setIsAddingMenuItem(false)}
-          newMenuItem={newMenuItem}
-          handleAddMenuItem={handleAddMenuItem}
-        />
-      )}
     </div>
   );
 }

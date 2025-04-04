@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { NavItem } from "../interfaces/interfaces";
+import { NavItem } from "../../interfaces/interfaces";
 import { twJoin } from 'tailwind-merge';
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

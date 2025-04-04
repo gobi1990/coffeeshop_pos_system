@@ -1,6 +1,6 @@
 import { memo, useCallback } from "react";
 import { twJoin } from "tailwind-merge";
-import { Order } from "../interfaces/interfaces";
+import { Order } from "../../interfaces/interfaces";
 
 interface OrderListProps {
   orders: Order[];

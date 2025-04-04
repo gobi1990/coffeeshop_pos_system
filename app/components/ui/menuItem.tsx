@@ -1,6 +1,6 @@
 import { memo } from "react";
 import { Plus, Image as ImageIcon } from "lucide-react";
-import { MenuItem } from "../interfaces/interfaces";
+import { MenuItem } from "../../interfaces/interfaces";
 import Image from "next/image";
 
 interface MenuItemUIProps {

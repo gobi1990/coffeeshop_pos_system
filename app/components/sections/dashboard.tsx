@@ -11,13 +11,13 @@ import {
   Legend,
   Bar,
 } from "recharts";
-import { Order, Employee } from "../interfaces/interfaces";
+import { Order, Employee } from "../../interfaces/interfaces";
 import {
     Clock,
   TrendingUp,
   Users,
 } from "lucide-react";
-import { paymentData } from "../data/mockData";
+import { paymentData } from "../../data/mockData";
 
 interface DashboardProps {
   orders: Order[];

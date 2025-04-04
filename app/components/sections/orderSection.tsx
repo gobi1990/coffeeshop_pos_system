@@ -1,7 +1,7 @@
 import { memo } from "react";
-import { CartItem, Order } from "../interfaces/interfaces";
-import OrderList from "./orderList";
-import OrderDetails from "./orderDetails";
+import { CartItem, Order } from "../../interfaces/interfaces";
+import OrderList from "../ui/orderList";
+import OrderDetails from "../ui/orderDetails";
 
 
 
