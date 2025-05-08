@@ -43,6 +43,12 @@ export default function Home() {
   const [isAddingMenuItem, setIsAddingMenuItem] = useState(false);
   const [inventory, setInventory] = useState<InventoryItem[]>(initialInventory);
   const [promotions, setPromotions] = useState<Promotion[]>(initialPromotions);
+  const [paymentHistory, setPaymentHistory] = useState<Array<{
+    orderId: string;
+    method: "cash" | "card";
+    amount: number;
+    date: Date;
+  }>>([]);
 
   const addToCart = useCallback((item: MenuItem) => {
     setCart((prev) => {
@@ -132,6 +138,26 @@ export default function Home() {
     setIsCartOpen(false);
   }, [cart]);
 
+  const checkoutOrder = useCallback((orderId: string, paymentDetails: { method: "cash" | "card", amount: number }) => {
+    setOrders((prev) =>
+      prev.map((order) =>
+        order.id === orderId
+          ? { ...order, status: "completed", date: new Date() }
+          : order
+      )
+    );
+    setPaymentHistory((prev) => [
+      ...prev,
+      {
+        orderId,
+        method: paymentDetails.method,
+        amount: paymentDetails.amount,
+        date: new Date(),
+      },
+    ]);
+    setSelectedOrder(null);
+  }, []);
+
   const togglePromotionStatus = useCallback((promotionId: string) => {
     setPromotions((prev) =>
       prev.map((promo) =>
@@ -178,12 +204,13 @@ export default function Home() {
           )}
           {activeNav === "Orders" && (
             <OrdersSection
-            orders={orders}
-            selectedOrder={selectedOrder}
-            setSelectedOrder={setSelectedOrder}
-            deleteOrder={deleteOrder}
-            updateOrder={updateOrder} 
-          />
+              orders={orders}
+              selectedOrder={selectedOrder}
+              setSelectedOrder={setSelectedOrder}
+              deleteOrder={deleteOrder}
+              updateOrder={updateOrder}
+              checkoutOrder={checkoutOrder}
+            />
           )}
           {activeNav === "Promotions" && (
             <PromotionsSection
@@ -194,6 +221,38 @@ export default function Home() {
           )}
           {activeNav === "Inventory" && <InventorySection inventory={inventory} />}
           {activeNav === "Employees" && <EmployeesSection />}
+          {activeNav === "Payments" && (
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              <h2 className="text-xl font-bold mb-6">Payment History</h2>
+              <div className="space-y-4">
+                {paymentHistory.length === 0 ? (
+                  <p className="text-gray-500 text-center py-4">No payment history yet</p>
+                ) : (
+                  paymentHistory.map((payment) => (
+                    <div
+                      key={`${payment.orderId}-${payment.date.getTime()}`}
+                      className="border rounded-lg p-4"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <div>
+                          <h4 className="font-medium">Order {payment.orderId}</h4>
+                          <p className="text-sm text-gray-500">
+                            {payment.date.toLocaleString()}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <span className="font-semibold">${payment.amount.toFixed(2)}</span>
+                          <p className="text-sm text-gray-500 capitalize">
+                            {payment.method} payment
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
         </main>
       </div>
       <CartSidebar

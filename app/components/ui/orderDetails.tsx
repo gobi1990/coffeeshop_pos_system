@@ -7,9 +7,10 @@ interface OrderDetailsProps {
   selectedOrder: Order;
   deleteOrder: (orderId: string) => void;
   updateOrder: (orderId: string, updatedItems: CartItem[]) => void;
+  isPaid?: boolean;
 }
 
-const OrderDetails = memo(({ selectedOrder, deleteOrder, updateOrder }: OrderDetailsProps) => {
+const OrderDetails = memo(({ selectedOrder, deleteOrder, updateOrder, isPaid }: OrderDetailsProps) => {
   const handleDeleteOrder = useCallback(
     () => deleteOrder(selectedOrder.id),
     [deleteOrder, selectedOrder.id]
@@ -33,12 +34,14 @@ const OrderDetails = memo(({ selectedOrder, deleteOrder, updateOrder }: OrderDet
     <div className="bg-white rounded-lg shadow-sm p-6">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-lg font-semibold">Order Details</h3>
-        <button
-          onClick={handleDeleteOrder}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
-        >
-          Delete Order
-        </button>
+        {!isPaid && (
+          <button
+            onClick={handleDeleteOrder}
+            className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          >
+            Delete Order
+          </button>
+        )}
       </div>
       <div className="mb-4">
         <p className="text-gray-600">Order ID: {selectedOrder.id}</p>
@@ -46,6 +49,9 @@ const OrderDetails = memo(({ selectedOrder, deleteOrder, updateOrder }: OrderDet
           Date: {new Date(selectedOrder.date).toLocaleString()}
         </p>
         <p className="text-gray-600">Total: ${selectedOrder.total.toFixed(2)}</p>
+        {isPaid && (
+          <p className="text-green-600 font-medium mt-2">✓ Payment Completed</p>
+        )}
       </div>
       <div className="space-y-4">
         {selectedOrder.items.map((item) => (
@@ -59,21 +65,23 @@ const OrderDetails = memo(({ selectedOrder, deleteOrder, updateOrder }: OrderDet
                 ${item.price.toFixed(2)} × {item.quantity}
               </p>
             </div>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => adjustQuantity(selectedOrder.id, item.id, -1)}
-                className="p-1 hover:bg-gray-100 rounded"
-              >
-                <Minus className="h-4 w-4" />
-              </button>
-              <span className="w-8 text-center">{item.quantity}</span>
-              <button
-                onClick={() => adjustQuantity(selectedOrder.id, item.id, 1)}
-                className="p-1 hover:bg-gray-100 rounded"
-              >
-                <Plus className="h-4 w-4" />
-              </button>
-            </div>
+            {!isPaid && (
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={() => adjustQuantity(selectedOrder.id, item.id, -1)}
+                  className="p-1 hover:bg-gray-100 rounded"
+                >
+                  <Minus className="h-4 w-4" />
+                </button>
+                <span className="w-8 text-center">{item.quantity}</span>
+                <button
+                  onClick={() => adjustQuantity(selectedOrder.id, item.id, 1)}
+                  className="p-1 hover:bg-gray-100 rounded"
+                >
+                  <Plus className="h-4 w-4" />
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
